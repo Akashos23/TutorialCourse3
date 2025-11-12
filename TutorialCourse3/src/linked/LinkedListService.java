@@ -8,6 +8,11 @@ public class LinkedListService {
 	}
 	
 	public void AddElementAtSpeceficPosition(int position, int value) {
+		if(linkedList == null) {
+			return;
+		}
+		
+		
 		int pos = 0;
 		boolean stop = false;
 		Integer previousValue = null;
@@ -42,11 +47,20 @@ public class LinkedListService {
 	}
 	
 	public void RemoveElementAtSpeceficPosition(int position) {
+		if(linkedList == null) {
+			return;
+		}
+
 		int pos = 0;
 		boolean stop = false;
 		boolean enter = false;
-		Integer previousValue = null;
 		LinkedElementList linkList = linkedList;
+	
+		if(linkList.getNextElement() == null) {
+			linkedList = null;
+			return;
+		}
+		
 		while(!stop) {
 			if(position == pos) {
 				if(linkList.getNextElement() != null) {
@@ -89,9 +103,12 @@ public class LinkedListService {
 		}
 	}
 	
-	public Integer getPositionElementAtSpecefic(int value) {
+	public Integer getPositionElementAtSpeceficValue(int value) {
+		if(linkedList == null) {
+			return null;
+		}
+
 		int pos = 0;
-		boolean stop = false;
 		LinkedElementList linkList = linkedList;
 		while(linkList != null) {
 			if(linkList.getElement() == value) {
@@ -104,6 +121,11 @@ public class LinkedListService {
 	}
 	
 	public void AddElementAtTheCorrectPosition(int value) {
+		if(linkedList == null) {
+			linkedList = new LinkedElementList(value, null);
+			return;
+		}
+		
 		int pos = 0;
 		boolean stop = false;
 		Integer previousValue = null;
@@ -140,7 +162,7 @@ public class LinkedListService {
 	}
 	
 	
-	public int getLengthLinkedList() {
+	public int Length() {
 		int cpt = 0;
 		LinkedElementList linkList = linkedList;
 		while(linkList!= null) {
@@ -148,6 +170,32 @@ public class LinkedListService {
 			linkList = linkList.getNextElement();
 		}
 		return cpt;
+	}
+	
+	public boolean isEmpty() {
+		return linkedList == null ? true : false;
+	}
+	
+	public LinkedElementList getLinkedElementListSorted(LinkedElementList listUnSorted) {
+		boolean stop = false;
+		int firstElement = listUnSorted.getElement();
+		
+		this.linkedList = new LinkedElementList(firstElement, null);
+		
+		
+		LinkedElementList linkList = listUnSorted;
+		while(!stop) {
+			AddElementAtTheCorrectPosition(linkList.getElement());
+			if(linkList.getNextElement() == null) {
+				stop = true;
+			}
+			else {
+				linkList = linkList.getNextElement();
+			}
+		}
+				
+		
+		return this.linkedList;
 	}
 
 	
@@ -159,5 +207,47 @@ public class LinkedListService {
 			linkList = linkList.getNextElement();
 		}
 		
+	}
+	
+	public void Pop() {
+		boolean stop = false;
+		
+		if(linkedList == null) {
+			return;
+		}
+		
+		LinkedElementList linkList = linkedList;
+		while(!stop) {
+			if(linkList.getNextElement() == null) {
+				stop = true;
+			}
+			else {
+				if(linkList.getNextElement().getNextElement() == null) {
+						linkList.setNextElement(null);
+						stop = true;
+				}
+				linkList = linkList.getNextElement();
+
+			}
+		}
+	}
+	
+	public void Push(int value) {
+		boolean stop = false;
+		
+		if(linkedList == null) {
+			return;
+		}
+		
+		LinkedElementList linkList = linkedList;
+		while(!stop) {
+			if(linkList.getNextElement() == null) {
+				linkList.setNextElement(new LinkedElementList(value, null));
+				stop = true;
+			}
+			else {
+				linkList = linkList.getNextElement();
+			}
+		}
 	}
 }
