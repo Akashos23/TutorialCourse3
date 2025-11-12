@@ -1,5 +1,6 @@
 package main;
 
+import linked.DoubleLinkedElementList;
 import linked.LinkedElementList;
 import linked.LinkedListService;
 
@@ -85,6 +86,21 @@ public class Main {
 		System.out.println();
 		System.out.println("Liste triée");
 		linkListUnSort.displayLinkedList();
+		
+		//Double liste chainéé
+		DoubleLinkedElementList DoubleLinkedElementList4 = null;
+		DoubleLinkedElementList DoubleLinkedElementList3 = null;
+		DoubleLinkedElementList DoubleLinkedElementList2 = null;
+		DoubleLinkedElementList DoubleLinkedElementList1 = null;
+		DoubleLinkedElementList DoubleLinkedElementList0 = null;
+		
+		
+		DoubleLinkedElementList4 = new DoubleLinkedElementList(9,DoubleLinkedElementList3,null);
+		DoubleLinkedElementList3 = new DoubleLinkedElementList(1,DoubleLinkedElementList2,DoubleLinkedElementList4);
+		DoubleLinkedElementList2 = new DoubleLinkedElementList(7,DoubleLinkedElementList1,DoubleLinkedElementList3);
+		DoubleLinkedElementList1 = new DoubleLinkedElementList(12, DoubleLinkedElementList0, DoubleLinkedElementList2);
+		DoubleLinkedElementList0 = new DoubleLinkedElementList(5,null, DoubleLinkedElementList1);
+		
 	}
 
 }
