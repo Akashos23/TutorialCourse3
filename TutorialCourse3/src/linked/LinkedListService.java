@@ -9,40 +9,38 @@ public class LinkedListService {
 	
 	public void AddElementAtSpeceficPosition(int position, int value) {
 		if(linkedList == null) {
+			linkedList = new LinkedElementList(value,null);
 			return;
 		}
 		
-		
+	    if(position == 0) {
+	    	LinkedElementList newElement = new LinkedElementList(value, linkedList);
+	    	linkedList = newElement;
+			return;
+		}
+	    
 		int pos = 0;
-		boolean stop = false;
-		Integer previousValue = null;
+		LinkedElementList previousValue = null;
 		LinkedElementList linkList = linkedList;
-		while(!stop) {
-			if(position == pos) {
-				previousValue = linkList.getElement();
-				linkList.setElement(value);
-				
+		while(linkList != null) {
+			if(pos + 1 == position) {
+				previousValue = linkList;
 			}
-			else {
-				if(previousValue != null) {
-					int val = linkList.getElement();
-					linkList.setElement(previousValue);
-					previousValue = val;
-				}
+			if(position == pos) {
+				LinkedElementList linkElementNext = linkList;
+				LinkedElementList newElement = new LinkedElementList(value, linkElementNext);
+				previousValue.setNextElement(newElement);
+				break;
 			}
 			if(linkList.getNextElement() == null) {
-				if(previousValue != null) {
-					linkList.setNextElement(new LinkedElementList(previousValue, null));
-				}
-				else {
-					linkList.setNextElement(new LinkedElementList(value, null));
-				}
-				stop = true;
+				LinkedElementList newElementAtTheEndOfTheList = new LinkedElementList(value, null);
+				linkList.setNextElement(newElementAtTheEndOfTheList);
+				break;
 			}
-			else {
-				linkList = linkList.getNextElement();
-			}
+			linkList = linkList.getNextElement();
 			pos++;
+			
+			
 		}
 	}
 	
@@ -52,53 +50,28 @@ public class LinkedListService {
 		}
 
 		int pos = 0;
-		boolean stop = false;
-		boolean enter = false;
 		LinkedElementList linkList = linkedList;
-	
+		LinkedElementList previousElement = null;
 		if(linkList.getNextElement() == null) {
 			linkedList = null;
 			return;
 		}
 		
-		while(!stop) {
+		if(position == 0) {
+			this.linkedList = this.linkedList.getNextElement();
+			return;
+		}
+		
+		while(linkList != null) {
+			if(pos + 1 == position) {
+				previousElement = linkList;
+			}
 			if(position == pos) {
-				if(linkList.getNextElement() != null) {
-					linkList.setElement(linkList.getNextElement().getElement());
-					enter = true;
-				}
-				if(linkList.getNextElement() != null) {
-					if(linkList.getNextElement().getNextElement() == null) {
-						linkList.setNextElement(null);
-					}
-				}
+				LinkedElementList newElement = linkList.getNextElement();
+				previousElement.setNextElement(newElement);
+				break;
 			}
-			else {
-				if(enter) {
-					if(linkList.getNextElement() != null) {
-						linkList.setElement(linkList.getNextElement().getElement());
-					}
-					if(linkList.getNextElement() != null) {
-						if(linkList.getNextElement().getNextElement() == null) {
-							linkList.setNextElement(null);
-						}
-					}
-				}
-			}
-			if(linkList.getNextElement() == null) {
-				stop = true;
-			}
-			else {
-				if(linkList.getNextElement().getNextElement() == null) {
-					int newPosition = pos + 1;
-					if(newPosition == position) {
-						linkList.setNextElement(null);
-						stop = true;
-					}
-				}
-				linkList = linkList.getNextElement();
-
-			}
+			linkList = linkList.getNextElement();
 			pos++;
 		}
 	}
@@ -128,7 +101,6 @@ public class LinkedListService {
 		
 		int pos = 0;
 		boolean stop = false;
-		Integer previousValue = null;
 		LinkedElementList linkList = linkedList;
 		int firstElement = linkList.getElement();
 		if(value < firstElement) {
@@ -198,15 +170,20 @@ public class LinkedListService {
 		return this.linkedList;
 	}
 
-	
-	public void displayLinkedList() {
-		System.out.println();
+	@Override
+	public  String toString() {
+		String retour = "\n";
 		LinkedElementList linkList = linkedList;
 		while(linkList!= null) {
-			System.out.print(linkList.getElement() + " - ");
+			if(linkList.getNextElement() != null) {
+				retour += linkList.getElement() + " - ";
+			}
+			else {
+				retour += linkList.getElement();
+			}
 			linkList = linkList.getNextElement();
 		}
-		
+		return retour;
 	}
 	
 	public void Pop() {
