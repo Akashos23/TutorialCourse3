@@ -83,7 +83,7 @@ public class Main {
 		LinkedElementList linkedListeSorted = linkListUnSort.getLinkedElementListSorted(listElementUnSorted0);
 		System.out.println();
 		System.out.println("List sort");
-		System.out.println(linkList.toString());
+		System.out.println(linkedListeSorted.toString());
 
 		// Double liste chainéé
 		DoubleLinkedElementList DoubleLinkedElementList4 = null;

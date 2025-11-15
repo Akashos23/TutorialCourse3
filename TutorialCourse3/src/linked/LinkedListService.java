@@ -164,9 +164,7 @@ public class LinkedListService {
 			else {
 				linkList = linkList.getNextElement();
 			}
-		}
-				
-		
+		}		
 		return this.linkedList;
 	}
 
@@ -188,8 +186,13 @@ public class LinkedListService {
 	
 	public void Pop() {
 		boolean stop = false;
-		
+
 		if(linkedList == null) {
+			return;
+		}
+		
+		if(linkedList.getNextElement() == null) {
+			linkedList = null;
 			return;
 		}
 		
@@ -213,6 +216,7 @@ public class LinkedListService {
 		boolean stop = false;
 		
 		if(linkedList == null) {
+			linkedList = new LinkedElementList(value, null);
 			return;
 		}
 		
