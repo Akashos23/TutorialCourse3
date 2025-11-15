@@ -79,7 +79,6 @@ class DoubleLinkListTest {
 		DoubleLinkedElementSortedList0 = new DoubleLinkedElementList(5, null, DoubleLinkedElementSortedList1);
 		
 		DoubleLinkedListService doubleLinkedListSortedService = new DoubleLinkedListService(DoubleLinkedElementSortedList0);
-		System.out.println(doubleLinkedListSortedService.toString());
 		
 		assertEquals("\n5 - 7 - 12 - 14 - 22", doubleLinkedListSortedService.toString());
 		
